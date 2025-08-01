@@ -6,11 +6,10 @@ add_executable(tetris_executable
     Grid/grid.cpp
     Colors/colors.cpp
     Block/block.cpp
+    Block/blocks.cpp
     Block/position.cpp
 )
 
 target_link_libraries(tetris_executable PRIVATE raylib)
 
 target_compile_options(tetris_executable PRIVATE ${PROJECT_COMPILE_OPTIONS})
-
-
