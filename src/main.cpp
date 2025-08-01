@@ -1,25 +1,27 @@
 #include "raylib.h"
+#include "Ball/ball.hpp"
 
-int main() {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
-
-    // Initialize the window and OpenGL context
-    InitWindow(screenWidth, screenHeight, "tetris_game - raylib");
-
-    // Set our game to run at 60 frames-per-second
+int main() 
+{
+    const Color darkGreen = {20, 160, 133, 255};
+    
+    constexpr int screenWidth = 800;
+    constexpr int screenHeight = 600;
+    
+    Ball ball;
+    
+    InitWindow(screenWidth, screenHeight, "My first RAYLIB program!");
     SetTargetFPS(60);
-
-    // Main game loop
-    while (!WindowShouldClose()) // Detect window close button or ESC key
+    
+    while (!WindowShouldClose())
     {
+        ball.Update();
+        
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("Congrats! You are linked with Raylib!", 160, 200, 20, LIGHTGRAY);
+            ClearBackground(darkGreen);
+            ball.Draw();
         EndDrawing();
     }
-
+    
     CloseWindow();
-
-    return 0;
 }
