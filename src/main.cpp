@@ -9,13 +9,14 @@ int main() {
     SetTargetFPS(60);
 
     Grid grid{};
-    grid.Print();
+    grid.PrintGridToCmd();
 
     while (WindowShouldClose() ==
            false) {  // Clsoe the window by pressing ECS button or clic on X button on the top-bar
         BeginDrawing();
 
         ClearBackground(darkBlue);
+        grid.Draw();
 
         EndDrawing();
     }
