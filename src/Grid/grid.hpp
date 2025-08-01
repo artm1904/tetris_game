@@ -10,15 +10,15 @@ class Grid {
     void PrintGridToCmd();
     void Draw();
 
-    int grid[20][10];
+    int GridArray[20][10];
 
    private:
-    std::vector<Color> GetCellColors();
+   
 
-    int numRows_;
-    int numCols_;
-    int cellSize_;
-    std::vector<Color> colors_{7};
+    int NumRows_;
+    int NumCols_;
+    int CellSize_;
+    std::vector<Color> Colors_{7};
 
 
 };
