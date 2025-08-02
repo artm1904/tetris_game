@@ -15,6 +15,7 @@ int main() {
 
         ClearBackground(darkBlue);
         game.Draw();
+        game.HundleInput();
 
         EndDrawing();
     }

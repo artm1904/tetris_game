@@ -1,6 +1,5 @@
 #include "game.hpp"
 
-
 Game::Game() : GridInstance(), Blocks_(GetAllBlocks()), RandomGenerator_(std::random_device()()) {
     CurrentBlock_ = GetRandomBlock();
     NextBlock_ = GetRandomBlock();
@@ -11,7 +10,6 @@ Block Game::GetRandomBlock() {
         Blocks_ = GetAllBlocks();
     }
 
- 
     std::uniform_int_distribution<> distribution(0, Blocks_.size() - 1);
     int randomIndex = distribution(RandomGenerator_);
     Block randomBlock = Blocks_[randomIndex];
@@ -26,5 +24,29 @@ std::vector<Block> Game::GetAllBlocks() {
 void Game::Draw() {
     GridInstance.Draw();
     CurrentBlock_.Draw();
-  
+}
+
+void Game::HundleInput() {
+    if (IsKeyPressed(KEY_LEFT)) {
+        MoveBlockLeft();
+    }
+    if (IsKeyPressed(KEY_RIGHT)) {
+        MoveBlockRight();
+    }
+    if (IsKeyPressed(KEY_DOWN)) {
+        MoveBlockDown();
+    }
+    if (IsKeyPressed(KEY_UP)) {
+        RotateBlock();
+    }
+}
+
+void Game::MoveBlockLeft() { CurrentBlock_.Move(0, -1); }
+
+void Game::MoveBlockRight() { CurrentBlock_.Move(0, 1); }
+
+void Game::MoveBlockDown() { CurrentBlock_.Move(1, 0); }
+
+void Game::RotateBlock() {
+    CurrentBlock_.SetRotationState((CurrentBlock_.GetRotationState() + 1) % 4);
 }

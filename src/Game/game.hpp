@@ -13,6 +13,16 @@ class Game {
 
     void Draw();
 
+    void HundleInput();
+
+    void MoveBlockLeft();
+
+    void MoveBlockRight();
+
+    void MoveBlockDown();
+
+    void RotateBlock();
+
     Grid GridInstance;
 
    private:
