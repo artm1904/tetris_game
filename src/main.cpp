@@ -1,5 +1,5 @@
-#include "Game/game.hpp"
 #include "Game/Colors/colors.hpp"
+#include "Game/game.hpp"
 #include "raylib.h"
 
 double lastUpdateTime = 0.0;
@@ -14,8 +14,6 @@ bool EventTriggered(double interval) {
 }
 
 int main() {
-    
-
     InitWindow(690, 840, "raylib [core] example - basic window");
     SetTargetFPS(60);
 
@@ -34,8 +32,17 @@ int main() {
 
         ClearBackground(darkBlue);
 
-        DrawTextEx(defaultFont, "Score:", {490, 35}, 38, 2, WHITE);
+        DrawTextEx(defaultFont, "Score:", {490, 35}, 45, 5, WHITE);
+        DrawTextEx(defaultFont, "Next:", {490, 275}, 45, 5, WHITE);
+
+        if (game.GameOver) {
+            DrawTextEx(defaultFont, "GAME", {490, 620}, 45, 5, WHITE);
+            DrawTextEx(defaultFont, "OVER!", {490, 665}, 45, 5, WHITE);
+        }
+
         DrawRectangleRounded({450, 80, 210, 60}, 0.5f, 0, lightBlue);
+        DrawRectangleRounded({450, 320, 210, 160}, 0.2f, 0, lightBlue);
+
         DrawTextEx(defaultFont, std::to_string(game.GridInstance.ClearFullRows()).c_str(),
                    {470, 90}, 38, 2, BLACK);
 
