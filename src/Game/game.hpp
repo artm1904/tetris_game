@@ -28,6 +28,8 @@ class Game {
 
    private:
     bool IsBlockOutOfBounds_() const;
+    void  LockBlock_();
+    bool IsBlockCollidingWithBlocks_() const;
     std::vector<Block> Blocks_;
     Block CurrentBlock_;
     Block NextBlock_;
