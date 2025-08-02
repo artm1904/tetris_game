@@ -1,9 +1,9 @@
 #include "game.hpp"
 
 Game::Game()
-    : GridInstance(),
-      GameOver(false),
+    : GameOver(false),
       Score(0),
+      GridInstance(),
       Blocks_(GetAllBlocks()),
       RandomGenerator_(std::random_device()()) {
     CurrentBlock_ = GetRandomBlock();
