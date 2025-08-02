@@ -7,26 +7,31 @@
 class Game {
    public:
     Game();
+    ~Game();
     void Draw();
     void HandleInput();
     void MoveBlockDown();
     bool GameOver;
     int Score;
+    Music Music;
 
    private:
-    Block GetRandomBlock();
-    std::vector<Block> GetAllBlocks();
-    void MoveBlockLeft();
-    void MoveBlockRight();
-    void RotateBlock();
+    Block GetRandomBlock_();
+    std::vector<Block> GetAllBlocks_();
+    void MoveBlockLeft_();
+    void MoveBlockRight_();
+    void RotateBlock_();
     bool IsBlockOutOfBounds_() const;
     void LockBlock_();
     bool IsBlockCollidingWithBlocks_() const;
     void Reset_();
     void UpdateScore_(int linesCleared, int movedDownPoints);
-    Grid GridInstance;
+
+    Grid GridInstance_;
     std::vector<Block> Blocks_;
     Block CurrentBlock_;
     Block NextBlock_;
     std::mt19937 RandomGenerator_;
+    Sound RotareSound_;
+    Sound ClearSound_;
 };
