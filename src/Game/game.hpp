@@ -27,7 +27,7 @@ class Game {
     Grid GridInstance;
 
    private:
-    bool IsBlockOutOfBounds_();
+    bool IsBlockOutOfBounds_() const;
     std::vector<Block> Blocks_;
     Block CurrentBlock_;
     Block NextBlock_;

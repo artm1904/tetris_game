@@ -41,17 +41,37 @@ void Game::HandleInput() {
     }
 }
 
-void Game::MoveBlockLeft() { CurrentBlock_.Move(0, -1); }
-
-void Game::MoveBlockRight() { CurrentBlock_.Move(0, 1); }
-
-void Game::MoveBlockDown() { CurrentBlock_.Move(1, 0); }
-
-void Game::RotateBlock() {
-    CurrentBlock_.SetRotationState((CurrentBlock_.GetRotationState() + 1) % 4);
+void Game::MoveBlockLeft() {
+    CurrentBlock_.Move(0, -1);
+    if (IsBlockOutOfBounds_()) {
+        CurrentBlock_.Move(0, 1);  // revert the move if out of bounds
+    }
 }
 
-bool Game::IsBlockOutOfBounds_() {
+void Game::MoveBlockRight() {
+    CurrentBlock_.Move(0, 1);
+    if (IsBlockOutOfBounds_()) {
+        CurrentBlock_.Move(0, -1);  // revert the move if out of bounds
+    }
+}
+
+void Game::MoveBlockDown() {
+    CurrentBlock_.Move(1, 0);
+    if (IsBlockOutOfBounds_()) {
+        CurrentBlock_.Move(-1, 0);  // revert the move if out of bounds
+    }
+}
+
+void Game::RotateBlock() {
+    auto previousRotationState = CurrentBlock_.GetRotationState();
+    CurrentBlock_.SetRotationState((CurrentBlock_.GetRotationState() + 1) % 4);
+    if (IsBlockOutOfBounds_()) {
+        CurrentBlock_.SetRotationState(
+            previousRotationState);  // revert the rotation if out of bounds
+    }
+}
+
+bool Game::IsBlockOutOfBounds_() const {
     std::vector<Position> positions = CurrentBlock_.GetCellPositions();
     for (const Position& pos : positions) {
         if (GridInstance.IsCellOutOfBounds(pos.Row_, pos.Column_)) {
