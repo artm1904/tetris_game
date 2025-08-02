@@ -3,12 +3,12 @@
 Block::Block()
     : CellSize_(40), RotationState_(0), Colors_(GetCellColors()), RowOffset_(0), ColOffset_(0) {};
 
-void Block::Draw() {
+void Block::Draw(int offsetX , int offsetY) {
     std::vector<Position> positions = GetCellPositions();
 
     for (const Position& pos : positions) {
-        DrawRectangle(pos.Column_ * CellSize_ + 21, pos.Row_ * CellSize_ + 21, CellSize_ - 1, CellSize_ - 1,
-                      Colors_[Id]);
+        DrawRectangle(pos.Column_ * CellSize_ + offsetX, pos.Row_ * CellSize_ + offsetY, CellSize_ - 1,
+                      CellSize_ - 1, Colors_[Id]);
     }
 };
 
@@ -22,8 +22,7 @@ std::vector<Position> Block::GetCellPositions() const {
     std::vector<Position> newPositions;
 
     for (const Position& pos : positions) {
-        newPositions.push_back(
-            Position(pos.Row_ + RowOffset_, pos.Column_ + ColOffset_));
+        newPositions.push_back(Position(pos.Row_ + RowOffset_, pos.Column_ + ColOffset_));
     }
 
     return newPositions;

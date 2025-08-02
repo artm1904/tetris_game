@@ -28,7 +28,20 @@ std::vector<Block> Game::GetAllBlocks() {
 
 void Game::Draw() {
     GridInstance.Draw();
-    CurrentBlock_.Draw();
+    CurrentBlock_.Draw(21, 21);
+
+    switch (NextBlock_.Id)  // Draw the next block in a fixed position
+    {
+        case 4:  // OBlock
+            NextBlock_.Draw(355, 360);
+            break;
+        case 3:  // IBlock
+            NextBlock_.Draw(355, 380);
+            break;
+        default:
+            NextBlock_.Draw(380, 360);
+            break;
+    }
 }
 
 void Game::HandleInput() {
