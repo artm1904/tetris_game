@@ -14,6 +14,7 @@ class Game {
     bool GameOver;
     int Score;
     Music Music;
+    Grid GridInstance_;
 
    private:
     Block GetRandomBlock_();
@@ -27,7 +28,6 @@ class Game {
     void Reset_();
     void UpdateScore_(int linesCleared, int movedDownPoints);
 
-    Grid GridInstance_;
     std::vector<Block> Blocks_;
     Block CurrentBlock_;
     Block NextBlock_;

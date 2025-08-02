@@ -1,4 +1,5 @@
 #include "Game/Colors/colors.hpp"
+#include "Game/Grid/grid.hpp"
 #include "Game/game.hpp"
 #include "raylib.h"
 
@@ -48,11 +49,13 @@ int main() {
             //----Draw Game Over screen----
             DrawTextEx(defaultFont, "GAME", {490, 620}, 45, 5, WHITE);
             DrawTextEx(defaultFont, "OVER!", {490, 665}, 45, 5, WHITE);
-            DrawTextEx(defaultFont, "Press R to restart", {50, 350}, 30, 2, RED);
-        } else {
-            //----Draw the game elements----
-            game.Draw();
+            DrawTextEx(defaultFont, "Press R to restart", {430, 665+35+20}, 26, 2, RED);
+            // Grid tempGrid;
+            // tempGrid.Initialize();
+            // tempGrid.Draw();
+            // DrawRectangle(20, 20, 400, 800, darkGrey);
         }
+        game.Draw();
 
         EndDrawing();
     }
