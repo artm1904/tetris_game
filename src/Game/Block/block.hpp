@@ -10,7 +10,10 @@ class Block {
     Block();
     void Draw();
     void Move(int rowOffset, int colOffset);
-    std::vector<Position> GetCellPositions();
+    std::vector<Position> GetCellPositions();\
+    int GetRotationState() const { return RotationState_; }
+    void SetRotationState(int state) { RotationState_ = state; }
+
 
     int Id;
     std::map<int, std::vector<Position>> Cells;
