@@ -134,7 +134,9 @@ bool Game::IsBlockCollidingWithBlocks_() const {
 }
 
 void Game::Reset() {
-    DrawText("Game Over! Press R to restart.", 50, 350, 20, RED);
+    Font defaultFont = LoadFontEx("fonts/monogram.ttf", 64, 0, 0);
+    DrawTextEx(defaultFont, "Game Over! Press R to restart.", {50, 350}, 24, 1, RED);
+    // DrawText("Game Over! Press R to restart.", 50, 350, 20, RED);
     if (IsKeyPressed(KEY_R)) {
         GameOver = false;
         GridInstance.Initialize();
