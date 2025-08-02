@@ -27,12 +27,14 @@ class Game {
     Grid GridInstance;
 
     bool GameOver;
+    int Score;
 
    private:
     bool IsBlockOutOfBounds_() const;
     void LockBlock_();
     bool IsBlockCollidingWithBlocks_() const;
-    void Reset();
+    void Reset_();
+    void UpdateScore_(int linesCleared, int movedDownPoints);
     std::vector<Block> Blocks_;
     Block CurrentBlock_;
     Block NextBlock_;

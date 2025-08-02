@@ -43,8 +43,11 @@ int main() {
         DrawRectangleRounded({450, 80, 210, 60}, 0.5f, 0, lightBlue);
         DrawRectangleRounded({450, 320, 210, 160}, 0.2f, 0, lightBlue);
 
-        DrawTextEx(defaultFont, std::to_string(game.GridInstance.ClearFullRows()).c_str(),
-                   {470, 90}, 38, 2, BLACK);
+        char scoreText[20];
+        snprintf(scoreText, sizeof(scoreText), "%d", game.Score);
+        Vector2 scoreSize = MeasureTextEx(defaultFont, scoreText, 38, 2);
+
+        DrawTextEx(defaultFont, scoreText, {470 + (125 - scoreSize.x) / 2, 90}, 38, 2, BLACK);
 
         game.Draw();
         game.HandleInput();

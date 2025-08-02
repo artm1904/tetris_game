@@ -3,6 +3,7 @@
 Game::Game()
     : GridInstance(),
       GameOver(false),
+      Score(0),
       Blocks_(GetAllBlocks()),
       RandomGenerator_(std::random_device()()) {
     CurrentBlock_ = GetRandomBlock();
@@ -32,7 +33,7 @@ void Game::Draw() {
 
 void Game::HandleInput() {
     if (GameOver) {
-        Reset();  // Reset the game if it's over
+        Reset_();  // Reset the game if it's over
         return;
     }
 
@@ -44,6 +45,7 @@ void Game::HandleInput() {
     }
     if (IsKeyPressed(KEY_DOWN)) {
         MoveBlockDown();
+        UpdateScore_(0, 1);
     }
     if (IsKeyPressed(KEY_UP)) {
         RotateBlock();
@@ -120,7 +122,8 @@ void Game::LockBlock_() {
 
     NextBlock_ = GetRandomBlock();
 
-    GridInstance.ClearFullRows();  // Clear full rows after locking the block
+    auto linesCleared = GridInstance.ClearFullRows();  // Clear full rows after locking the block
+    UpdateScore_(linesCleared, 0);
 }
 
 bool Game::IsBlockCollidingWithBlocks_() const {
@@ -133,15 +136,36 @@ bool Game::IsBlockCollidingWithBlocks_() const {
     return false;
 }
 
-void Game::Reset() {
+void Game::Reset_() {
     Font defaultFont = LoadFontEx("fonts/monogram.ttf", 64, 0, 0);
     DrawTextEx(defaultFont, "Game Over! Press R to restart.", {50, 350}, 24, 1, RED);
     // DrawText("Game Over! Press R to restart.", 50, 350, 20, RED);
     if (IsKeyPressed(KEY_R)) {
         GameOver = false;
+        Score = 0;
         GridInstance.Initialize();
         Blocks_ = GetAllBlocks();
         CurrentBlock_ = GetRandomBlock();
         NextBlock_ = GetRandomBlock();
     }
+}
+
+void Game::UpdateScore_(int linesCleared, int movedDownPoints) {
+    switch (linesCleared) {
+        case 1:
+            Score += 100;
+            break;
+        case 2:
+            Score += 300;
+            break;
+        case 3:
+            Score += 500;
+            break;
+        case 4:
+            Score += 800;
+            break;
+        default:
+            break;
+    }
+    Score += movedDownPoints;
 }
