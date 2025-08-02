@@ -39,3 +39,7 @@ void Grid::Draw() {
 bool Grid::IsCellOutOfBounds(int row, int col) const {
     return (row < 0 || row >= NumRows_ || col < 0 || col >= NumCols_);
 }
+
+bool Grid::IsCellEmpty(int row, int col) const {
+    return GridArray[row][col] == 0;  // Assuming 0 means empty cell
+}
