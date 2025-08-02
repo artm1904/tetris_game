@@ -15,7 +15,7 @@ bool EventTriggered(double interval) {
 int main() {
     Color darkBlue = {44, 44, 128, 255};
 
-    InitWindow(400, 800, "raylib [core] example - basic window");
+    InitWindow(690, 840, "raylib [core] example - basic window");
     SetTargetFPS(60);
 
     Game game{};

@@ -30,7 +30,7 @@ void Grid::Draw() {
         for (int col = 0; col < NumCols_; ++col) {
             int cellValue = GridArray[row][col];
             Color cellColor = Colors_[cellValue];
-            DrawRectangle(col * CellSize_ + 1, row * CellSize_ + 1, CellSize_ - 1, CellSize_ - 1,
+            DrawRectangle(col * CellSize_ + 21, row * CellSize_ + 21, CellSize_ - 1, CellSize_ - 1,
                           cellColor);
         }
     }

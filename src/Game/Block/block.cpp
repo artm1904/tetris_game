@@ -7,7 +7,7 @@ void Block::Draw() {
     std::vector<Position> positions = GetCellPositions();
 
     for (const Position& pos : positions) {
-        DrawRectangle(pos.Column_ * CellSize_ + 1, pos.Row_ * CellSize_ + 1, CellSize_ - 1, CellSize_ - 1,
+        DrawRectangle(pos.Column_ * CellSize_ + 21, pos.Row_ * CellSize_ + 21, CellSize_ - 1, CellSize_ - 1,
                       Colors_[Id]);
     }
 };
