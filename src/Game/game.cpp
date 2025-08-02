@@ -26,7 +26,7 @@ void Game::Draw() {
     CurrentBlock_.Draw();
 }
 
-void Game::HundleInput() {
+void Game::HandleInput() {
     if (IsKeyPressed(KEY_LEFT)) {
         MoveBlockLeft();
     }
@@ -49,4 +49,14 @@ void Game::MoveBlockDown() { CurrentBlock_.Move(1, 0); }
 
 void Game::RotateBlock() {
     CurrentBlock_.SetRotationState((CurrentBlock_.GetRotationState() + 1) % 4);
+}
+
+bool Game::IsBlockOutOfBounds_() {
+    std::vector<Position> positions = CurrentBlock_.GetCellPositions();
+    for (const Position& pos : positions) {
+        if (GridInstance.IsCellOutOfBounds(pos.Row_, pos.Column_)) {
+            return true;
+        }
+    }
+    return false;
 }

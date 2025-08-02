@@ -1,7 +1,8 @@
 #pragma once
+#include <random>
+
 #include "Block/blocks.hpp"
 #include "Grid/grid.hpp"
-#include <random>
 
 class Game {
    public:
@@ -13,7 +14,7 @@ class Game {
 
     void Draw();
 
-    void HundleInput();
+    void HandleInput();
 
     void MoveBlockLeft();
 
@@ -26,6 +27,7 @@ class Game {
     Grid GridInstance;
 
    private:
+    bool IsBlockOutOfBounds_();
     std::vector<Block> Blocks_;
     Block CurrentBlock_;
     Block NextBlock_;
