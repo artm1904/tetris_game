@@ -98,6 +98,9 @@ void Game::LockBlock_() {
     // Reset the current block and generate a new one
     CurrentBlock_ = NextBlock_;
     NextBlock_ = GetRandomBlock();
+
+    GridInstance.ClearFullRows();  // Clear full rows after locking the block
+   
 }
 
 bool Game::IsBlockCollidingWithBlocks_() const {

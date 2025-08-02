@@ -43,3 +43,39 @@ bool Grid::IsCellOutOfBounds(int row, int col) const {
 bool Grid::IsCellEmpty(int row, int col) const {
     return GridArray[row][col] == 0;  // Assuming 0 means empty cell
 }
+
+int Grid::ClearFullRows() {
+    int clearedRows = 0;
+    for (int row = NumRows_ - 1; row >= 0; --row) {
+        if (IsRowFull_(row)) {
+            ClearRow_(row);
+            clearedRows++;
+
+        } else if (clearedRows > 0) {
+            MoveRowDown_(row, clearedRows);
+        }
+    }
+    return clearedRows;
+}
+
+bool Grid::IsRowFull_(int row) const {
+    for (int col = 0; col < NumCols_; ++col) {
+        if (GridArray[row][col] == 0) {
+            return false;  // If any cell in the row is empty, the row is not full
+        }
+    }
+    return true;
+}
+
+void Grid::ClearRow_(int row) {
+    for (int col = 0; col < NumCols_; ++col) {
+        GridArray[row][col] = 0;  // Clear the row by setting all cells to 0
+    }
+}
+
+void Grid::MoveRowDown_(int row, int numRows) {
+    for (int col = 0; col < NumCols_; ++col) {
+        GridArray[row + numRows][col] = GridArray[row][col];  // Move the row down
+        GridArray[row][col] = 0;                              // Clear the original row
+    }
+}
