@@ -1,6 +1,4 @@
-
-#include "Block/blocks.hpp"
-#include "Grid/grid.hpp"
+#include "Game/game.hpp"
 #include "raylib.h"
 
 int main() {
@@ -9,18 +7,14 @@ int main() {
     InitWindow(400, 800, "raylib [core] example - basic window");
     SetTargetFPS(60);
 
-    Grid grid{};
-    grid.PrintGridToCmd();
-    LBlock block{};
+    Game game{};
 
     while (WindowShouldClose() ==
            false) {  // Clsoe the window by pressing ECS button or clic on X button on the top-bar
         BeginDrawing();
 
         ClearBackground(darkBlue);
-        grid.Draw();
-
-        block.Draw();
+        game.Draw();
 
         EndDrawing();
     }

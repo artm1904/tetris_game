@@ -3,11 +3,12 @@ cmake_minimum_required(VERSION 3.10)
 
 add_executable(tetris_executable
     main.cpp
-    Grid/grid.cpp
-    Colors/colors.cpp
-    Block/block.cpp
-    Block/blocks.cpp
-    Block/position.cpp
+    Game/Grid/grid.cpp
+    Game/Colors/colors.cpp
+    Game/Block/block.cpp
+    Game/Block/blocks.cpp
+    Game/Block/position.cpp
+    Game/game.cpp
 )
 
 target_link_libraries(tetris_executable PRIVATE raylib)
