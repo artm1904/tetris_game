@@ -1,6 +1,10 @@
 #include "game.hpp"
 
-Game::Game() : GridInstance(), Blocks_(GetAllBlocks()), RandomGenerator_(std::random_device()()) {
+Game::Game()
+    : GridInstance(),
+      GameOver(false),
+      Blocks_(GetAllBlocks()),
+      RandomGenerator_(std::random_device()()) {
     CurrentBlock_ = GetRandomBlock();
     NextBlock_ = GetRandomBlock();
 }
@@ -27,6 +31,11 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
+    if (GameOver) {
+        Reset();  // Reset the game if it's over
+        return;
+    }
+
     if (IsKeyPressed(KEY_LEFT)) {
         MoveBlockLeft();
     }
@@ -42,24 +51,30 @@ void Game::HandleInput() {
 }
 
 void Game::MoveBlockLeft() {
-    CurrentBlock_.Move(0, -1);
-    if (IsBlockOutOfBounds_() || IsBlockCollidingWithBlocks_()) {
-        CurrentBlock_.Move(0, 1);  // revert the move if out of bounds
+    if (!GameOver) {
+        CurrentBlock_.Move(0, -1);
+        if (IsBlockOutOfBounds_() || IsBlockCollidingWithBlocks_()) {
+            CurrentBlock_.Move(0, 1);  // revert the move if out of bounds
+        }
     }
 }
 
 void Game::MoveBlockRight() {
-    CurrentBlock_.Move(0, 1);
-    if (IsBlockOutOfBounds_() || IsBlockCollidingWithBlocks_()) {
-        CurrentBlock_.Move(0, -1);  // revert the move if out of bounds
+    if (!GameOver) {
+        CurrentBlock_.Move(0, 1);
+        if (IsBlockOutOfBounds_() || IsBlockCollidingWithBlocks_()) {
+            CurrentBlock_.Move(0, -1);  // revert the move if out of bounds
+        }
     }
 }
 
 void Game::MoveBlockDown() {
-    CurrentBlock_.Move(1, 0);
-    if (IsBlockOutOfBounds_() || IsBlockCollidingWithBlocks_()) {
-        CurrentBlock_.Move(-1, 0);  // revert the move if out of bounds
-        LockBlock_();
+    if (!GameOver) {
+        CurrentBlock_.Move(1, 0);
+        if (IsBlockOutOfBounds_() || IsBlockCollidingWithBlocks_()) {
+            CurrentBlock_.Move(-1, 0);  // revert the move if out of bounds
+            LockBlock_();
+        }
     }
 }
 
@@ -97,10 +112,15 @@ void Game::LockBlock_() {
 
     // Reset the current block and generate a new one
     CurrentBlock_ = NextBlock_;
+    if (IsBlockCollidingWithBlocks_() == true) {
+        // If the new block collides, it means the game is over
+        GameOver = true;
+        return;
+    }
+
     NextBlock_ = GetRandomBlock();
 
     GridInstance.ClearFullRows();  // Clear full rows after locking the block
-   
 }
 
 bool Game::IsBlockCollidingWithBlocks_() const {
@@ -111,4 +131,15 @@ bool Game::IsBlockCollidingWithBlocks_() const {
         }
     }
     return false;
+}
+
+void Game::Reset() {
+    DrawText("Game Over! Press R to restart.", 50, 350, 20, RED);
+    if (IsKeyPressed(KEY_R)) {
+        GameOver = false;
+        GridInstance.Initialize();
+        Blocks_ = GetAllBlocks();
+        CurrentBlock_ = GetRandomBlock();
+        NextBlock_ = GetRandomBlock();
+    }
 }
