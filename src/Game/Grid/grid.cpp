@@ -1,6 +1,7 @@
 #include "grid.hpp"
 
 #include <iostream>
+
 #include "../Colors/colors.hpp"
 
 Grid::Grid() : NumRows_(20), NumCols_(10), CellSize_(40), Colors_(GetCellColors()) {
@@ -24,14 +25,17 @@ void Grid::PrintGridToCmd() {
     }
 }
 
-
-
 void Grid::Draw() {
     for (int row = 0; row < NumRows_; ++row) {
         for (int col = 0; col < NumCols_; ++col) {
             int cellValue = GridArray[row][col];
             Color cellColor = Colors_[cellValue];
-            DrawRectangle(col * CellSize_ + 1, row * CellSize_+ 1, CellSize_-1, CellSize_-1, cellColor);
+            DrawRectangle(col * CellSize_ + 1, row * CellSize_ + 1, CellSize_ - 1, CellSize_ - 1,
+                          cellColor);
         }
     }
+}
+
+bool Grid::IsCellOutOfBounds(int row, int col) const {
+    return (row < 0 || row >= NumRows_ || col < 0 || col >= NumCols_);
 }
