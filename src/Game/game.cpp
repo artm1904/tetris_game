@@ -63,6 +63,10 @@ void Game::MoveBlockDown() {
 }
 
 void Game::RotateBlock() {
+    if (CurrentBlock_.Id == 4) {
+        // OBlock does not rotate, so we skip the rotation logic
+        return;
+    }
     auto previousRotationState = CurrentBlock_.GetRotationState();
     CurrentBlock_.SetRotationState((CurrentBlock_.GetRotationState() + 1) % 4);
     if (IsBlockOutOfBounds_()) {
